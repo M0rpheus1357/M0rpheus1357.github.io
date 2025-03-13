@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLStore</title>
+    <link rel="icon" type="images" href="vlb.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+            border: 3px solid #ffffff;
+        }
+        .logo img {
+            height: 60px;
+        }
+        .navbar {
+            display: flex;
+            gap: 20px;
+            position: relative; /* เพิ่มตำแหน่ง relative สำหรับ dropdown */
+        }
+        .navbar a {
+            text-decoration: none;
+            font-size: 18px;
+            font-size: larger;
+            color: #000000;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .login-btn button {
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-btn button:hover {
+            background-color: #e03d00;
+        }
+
+        /* Dropdown styles */
+        .navbar .dropdown {
+        position: relative;
+        }
+
+        .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 100%;
+        }
+
+        .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+        }
+
+        .dropdown-content a:hover {
+        background-color: #ddd;
+        }
+
+        /* Only show dropdown when hovering over Shop */
+        .dropdown:hover .dropdown-content {
+        display: block;
+        }
+        /* Carousel styles */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            margin: 80px auto 0;
+            overflow: hidden;
+        }
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-wrapper img {
+            width: 70%;
+            margin: 0 auto;
+            height: 500px;
+            object-fit: scale-down;
+            flex: 0 0 100%;
+        }
+        .carousel-dots {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .dot {
+            height: 10px;
+            width: 10px;
+            margin: 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .dot.active {
+            background-color: #717171;
+        }
+
+        /* Product Grid */
+        .product-section {
+            margin: 50px auto;
+            max-width: 1000px;
+        }
+        .product-title {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-items: center;
+        }
+        .product-item {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        .product-item:hover {
+            transform: translateY(-5px);
+        }
+        .product-item img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 10px;
+        }
+        .product-name {
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="home.html">
+            <img src="vlb.png" alt="">
+        </a>
+        </div>
+        <div class="navbar">
+            <a href="home.html">Home</a>
+            <div class="dropdown">
+                <a href="#">Shop</a>
+                <div class="dropdown-content">
+                    <a href="pprx.html">Paper Rex</a>
+                    <a href="drx.html">DRX</a>
+                    <a href="t1.html">T1</a>
+                </div>
+            </div>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="login-btn">
+            <a href="login.html">
+            <button>Login</button>
+        </a>
+        </div>
+    </header>
+
+    <!-- Image Carousel -->
+    <div class="carousel-container">
+        <div class="carousel-wrapper">
+            <img src="https://shop.pprx.team/cdn/shop/files/Dinoglitch-Hero-Banner-AvailNow.jpg?v=1737732487&width=2000" alt="Promo 1">
+            <img src="https://md-img.s3.ap-northeast-2.amazonaws.com/Main_drxglobal/mainbanner/25+S1+AUTHENTIC+UNIFORM/25UNIFORM_PC.png" alt="Promo 2">
+            <img src="https://shop-t1.gg/ado/images/uniform_main_image03.jpeg" alt="Promo 3">
+        </div>
+        <div class="carousel-dots">
+            <span class="dot active" onclick="moveToSlide(0)"></span>
+            <span class="dot" onclick="moveToSlide(1)"></span>
+            <span class="dot" onclick="moveToSlide(2)"></span>
+        </div>
+    </div>
+
+    <!-- Product Grid Section -->
+    <div class="product-section">
+        <h2 class="product-title">Paper Rex</h2>
+        <div class="product-grid">
+            <div class="product-item">
+                <a href="pprx1.html">
+                <img src="https://shop.pprx.team/cdn/shop/files/WEB_-Dinoglitch-front.jpg?v=1737727469&width=1000"
+                     data-hover="https://shop.pprx.team/cdn/shop/files/WEB_-Dinoglitch-back.jpg?v=1737727469&width=1000"
+                     onmouseover="this.src=this.getAttribute('data-hover')"
+                     onmouseout="this.src=this.getAttribute('data-original')"
+                     data-original="https://shop.pprx.team/cdn/shop/files/WEB_-Dinoglitch-front.jpg?v=1737727469&width=1000">
+                <p class="product-name">PRX Official Match Jersey 2025/26 DinoGlitch</p>
+            </a>
+            </div>
+            <div class="product-item">
+                <a href="pprx2.html">
+                <img src="https://shop.pprx.team/cdn/shop/files/WEB_-Dinoglitch-Crop-front.jpg?v=1737727405&width=1000"
+                     data-hover="https://shop.pprx.team/cdn/shop/files/WEB_-Dinoglitch-Crop-back.jpg?v=1737727405&width=1000"
+                     onmouseover="this.src=this.getAttribute('data-hover')"
+                     onmouseout="this.src=this.getAttribute('data-original')"
+                     data-original="https://shop.pprx.team/cdn/shop/files/WEB_-Dinoglitch-Crop-front.jpg?v=1737727405&width=1000">
+                <p class="product-name">PRX Crop Jersey 2025/26 DinoGlitch</p>
+            </a>
+            </div>
+            <div class="product-item">
+                <a href="pprx3.html">
+                <img src="https://shop.pprx.team/cdn/shop/files/WEB_-PRX-Basics-2025-BlackHoodie-Front.jpg?v=1737726367&width=1000"
+                     data-hover="https://shop.pprx.team/cdn/shop/files/WEB_-PRX-Basics-2025-BlackHoodie-Back.jpg?v=1737726367&width=1000"
+                     onmouseover="this.src=this.getAttribute('data-hover')"
+                     onmouseout="this.src=this.getAttribute('data-original')"
+                     data-original="https://shop.pprx.team/cdn/shop/files/WEB_-PRX-Basics-2025-BlackHoodie-Front.jpg?v=1737726367&width=1000">
+                <p class="product-name">PRX Official Match Jersey 2025/26 DinoGlitch</p>
+            </a>
+            </div>
+        </div>
+
+        <h2 class="product-title">DRX</h2>
+        <div class="product-grid">
+            <div class="product-item">
+                <a href="drx1.html">
+                <img src="https://en.drxstyle.com/web/product/big/202405/32d7ebdf4678af5a22e0d753389c1364.png"
+                     data-hover="https://en.drxstyle.com/web/product/extra/big/202406/257d07a33da881004091540219603485.png"
+                     onmouseover="this.src=this.getAttribute('data-hover')"
+                     onmouseout="this.src=this.getAttribute('data-original')"
+                     data-original="https://en.drxstyle.com/web/product/big/202405/32d7ebdf4678af5a22e0d753389c1364.png">
+                <p class="product-name">24 SUMMER AUTHENTIC S/S T-SHIRT</p>
+            </a>
+            </div>
+            <div class="product-item">
+                <a href="drx2.html">
+                <img src="https://en.drxstyle.com/web/product/big/202501/3f790e11ab7c3cd66f4db59177524b60.png"
+                     data-hover="https://en.drxstyle.com/web/product/extra/big/202501/516f72c17cb462e02e3bf0c5d1aa262a.png"
+                     onmouseover="this.src=this.getAttribute('data-hover')"
+                     onmouseout="this.src=this.getAttribute('data-original')"
+                     data-original="https://en.drxstyle.com/web/product/big/202501/3f790e11ab7c3cd66f4db59177524b60.png">
+                <p class="product-name">25 S1 AUTHENTIC T-SHIRT HOME(GREY)</p>
+            </a>
+            </div>
+            <div class="product-item">
+                <a href="drx3.html">
+                <img src="https://en.drxstyle.com/web/product/big/202501/7133f7e3378ccd2b2985e7ae8b11c2eb.png"
+                     data-hover="https://en.drxstyle.com/web/product/extra/big/202501/241d81b4c0a5d71c67d90d2fe5f71ce8.png"
+                     onmouseover="this.src=this.getAttribute('data-hover')"
+                     onmouseout="this.src=this.getAttribute('data-original')"
+                     data-original="https://en.drxstyle.com/web/product/big/202501/7133f7e3378ccd2b2985e7ae8b11c2eb.png">
+                <p class="product-name">2024 Champions Jacket</p>
+            </a>
+            </div>
+        </div>
+
+        <h2 class="product-title">T1 </h2>
+        <div class="product-grid">
+            <div class="product-item">
+                <a href="t11.html">
+                <img src="https://shop-t1-na.gg/cdn/shop/files/VAL_-2025-T1-Uniform-Jersey_Front_600x.jpg?v=1738279187"
+                     data-hover="https://shop-t1-na.gg/cdn/shop/files/VAL_-2025-T1-Uniform-Jersey_Back_400x.jpg?v=1738279187"
+                     onmouseover="this.src=this.getAttribute('data-hover')"
+                     onmouseout="this.src=this.getAttribute('data-original')"
+                     data-original="https://shop-t1-na.gg/cdn/shop/files/VAL_-2025-T1-Uniform-Jersey_Front_600x.jpg?v=1738279187">
+                <p class="product-name">[VAL] 2025 T1 Uniform Jersey</p>
+            </a>
+            </div>
+            <div class="product-item">
+                <a href="t12.html">
+                <img src="https://shop-t1-na.gg/cdn/shop/files/2024-T1-Uniform-Jacket-Updated-front_600x.jpg?v=1720480221"
+                     data-hover="https://shop-t1-na.gg/cdn/shop/files/2024-T1-Uniform-Jacket-Updated-Back_400x.jpg?v=1720480221"
+                     onmouseover="this.src=this.getAttribute('data-hover')"
+                     onmouseout="this.src=this.getAttribute('data-original')"
+                     data-original="https://shop-t1-na.gg/cdn/shop/files/2024-T1-Uniform-Jacket-Updated-front_600x.jpg?v=1720480221">
+                <p class="product-name">2024 T1 Uniform Jacket</p>
+            </a>
+            </div>
+            <div class="product-item">
+                <a href="t14.html">
+                <img src="https://shop-t1-na.gg/cdn/shop/files/FRONT-cropped_77701f00-6e7b-479b-b8ee-c541247d46cf_600x.jpg?v=1694456252"
+                     data-hover="https://shop-t1-na.gg/cdn/shop/files/BACK-cropped_511a93cb-38e4-4d6c-92bf-f543fe3b7c63_400x.jpg?v=1694456252"
+                     onmouseover="this.src=this.getAttribute('data-hover')"
+                     onmouseout="this.src=this.getAttribute('data-original')"
+                     data-original="https://shop-t1-na.gg/cdn/shop/files/FRONT-cropped_77701f00-6e7b-479b-b8ee-c541247d46cf_600x.jpg?v=1694456252">
+                <p class="product-name">2023 T1 Champions Uniform Jersey</p>
+            </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll(".carousel-wrapper img");
+        const dots = document.querySelectorAll(".dot");
+        const totalSlides = slides.length;
+        const carouselWrapper = document.querySelector(".carousel-wrapper");
+
+        function moveToSlide(index) {
+            currentIndex = index;
+            carouselWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+            updateDots();
+        }
+
+        function updateDots() {
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[currentIndex].classList.add("active");
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            moveToSlide(currentIndex);
+        }
+
+        setInterval(nextSlide, 3000);
+    </script>
+</body>
+</html>
